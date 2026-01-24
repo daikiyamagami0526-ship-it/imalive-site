@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>I’m Alive? | 生存チェック</title>
+  <meta name="description" content="今日、生きてるって押すだけ。連続生存を記録して、ゆるく見守り合う。">
+  <meta name="theme-color" content="#ff7a00" />
+  <style>
+    :root{
+      --bg:#070707;
+      --panel:#0e0e0e;
+      --text:#f4f4f4;
+      --muted:#bdbdbd;
+      --line:rgba(255,255,255,.10);
+      --accent:#ff7a00;
+      --accent2:#ffb000;
+      --radius:18px;
+      --shadow: 0 16px 60px rgba(0,0,0,.55);
+      --max: 980px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 600px at 50% -20%, rgba(255,122,0,.25), transparent 60%),
+        radial-gradient(900px 500px at 80% 10%, rgba(255,176,0,.12), transparent 55%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
+    header{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(to bottom, rgba(7,7,7,.82), rgba(7,7,7,.45));
+      border-bottom:1px solid var(--line);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+      gap:14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; min-width:220px;
+      font-weight:700; letter-spacing:.2px;
+    }
+    .dot{
+      width:12px; height:12px; border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, var(--accent2), var(--accent));
+      box-shadow: 0 0 18px rgba(255,122,0,.55);
+    }
+    .menu{display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-end}
+    .menu a{
+      color:var(--muted);
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid transparent;
+    }
+    .menu a:hover{
+      color:var(--text);
+      border-color:rgba(255,122,0,.35);
+      background:rgba(255,122,0,.10);
+    }
+
+    .hero{padding:54px 0 26px}
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:22px;
+      align-items:stretch;
+    }
+    @media (max-width: 920px){
+      .heroGrid{grid-template-columns:1fr; }
+      .brand{min-width:auto}
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+    .heroMain{padding:26px}
+    h1{
+      margin:0 0 12px;
+      font-size:44px;
+      line-height:1.15;
+      letter-spacing:.2px;
+    }
+    .tagline{color:var(--muted); margin:0 0 18px; font-size:16px}
+    .lead{margin:0 0 22px; font-size:16px; color:#dedede}
+    .ctaRow{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:12px 16px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color:var(--text);
+      font-weight:700;
+      transition: transform .06s ease, background .18s ease, border-color .18s ease;
+    }
+    .btn:hover{background: rgba(255,122,0,.10); border-color: rgba(255,122,0,.35)}
+    .btn:active{transform: translateY(1px)}
+    .btnPrimary{
+      background: linear-gradient(135deg, rgba(255,122,0,.95), rgba(255,176,0,.85));
+      border-color: rgba(255,122,0,.55);
+      color:#111;
+    }
+    .btnPrimary:hover{filter:brightness(1.03)}
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:7px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,122,0,.35);
+      background: rgba(255,122,0,.10);
+      color:#ffe8d2;
+      font-size:12px;
+      margin-bottom:14px;
+      width:fit-content;
+    }
+    .heroSide{padding:22px}
+    .mock{
+      height:100%;
+      border-radius: calc(var(--radius) - 6px);
+      border:1px dashed rgba(255,122,0,.35);
+      background:
+        radial-gradient(900px 420px at 30% 10%, rgba(255,122,0,.22), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      padding:18px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      justify-content:space-between;
+      min-height: 260px;
+    }
+    .mockTitle{font-weight:800; letter-spacing:.2px}
+    .mockRow{display:flex; gap:10px; flex-wrap:wrap}
+    .chip{
+      font-size:12px; color:var(--muted);
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.02);
+    }
+    .note{
+      color:var(--muted);
+      font-size:12px;
+      margin:0;
+    }
+
+    section{padding:28px 0}
+    .sectionHead{display:flex; align-items:flex-end; justify-content:space-between; gap:12px; margin-bottom:14px}
+    h2{margin:0; font-size:22px}
+    .sub{margin:0; color:var(--muted); font-size:13px}
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    @media (max-width: 920px){ .grid3{grid-template-columns:1fr} }
+    .feature{padding:18px}
+    .kicker{
+      color:#ffd8b0;
+      font-size:12px;
+      letter-spacing:.2px;
+      margin:0 0 8px;
+    }
+    .feature h3{margin:0 0 8px; font-size:16px}
+    .feature p{margin:0; color:var(--muted); font-size:14px}
+
+    .download{padding:18px}
+    .storeRow{display:flex; gap:12px; flex-wrap:wrap; margin-top:12px}
+    .store{
+      flex:1 1 240px;
+      padding:16px;
+      border-radius:var(--radius);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.02);
+    }
+    .store .name{font-weight:800}
+    .store .desc{margin:6px 0 12px; color:var(--muted); font-size:13px}
+    .store .btn{width:100%}
+
+    .legal{padding:18px}
+    .legal p{margin:0; color:var(--muted); font-size:14px}
+    .legal a{
+      color:#ffd8b0;
+      text-decoration:underline;
+      text-underline-offset:3px;
+    }
+
+    footer{
+      padding:26px 0 40px;
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      font-size:12px;
+    }
+    .footRow{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; align-items:center}
+    .links{display:flex; gap:12px; flex-wrap:wrap}
+    .links a:hover{color:var(--text)}
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="wrap">
+      <div class="nav">
+        <div class="brand">
+          <span class="dot" aria-hidden="true"></span>
+          <span>I’m Alive?</span>
+        </div>
+        <nav class="menu" aria-label="ページ内メニュー">
+          <a href="#features">特徴</a>
+          <a href="#download">ダウンロード</a>
+          <a href="#privacy">プライバシー</a>
+          <a href="#terms">利用規約</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="heroGrid">
+        <div class="card heroMain">
+          <div class="pill">今日、生きてるって押すだけ。</div>
+          <h1>I’m Alive?</h1>
+          <p class="tagline">静かな見守り。連続生存を“記録”して、ゆるく“つながる”。</p>
+          <p class="lead">
+            1日1回のチェックインで「今日」を残す。<br>
+            もし途切れたら、指定した相手に通知（※実装状況に合わせて調整可）。
+          </p>
+          <div class="ctaRow">
+            <a class="btn btnPrimary" href="#download">公開状況を見る</a>
+            <a class="btn" href="#features">機能を見る</a>
+          </div>
+        </div>
+
+        <div class="card heroSide">
+          <div class="mock">
+            <div>
+              <div class="mockTitle">画面イメージ（あとで差し替えOK）</div>
+              <p class="note">ここはスクショ/動画/GIFを置く場所。まずは仮でOK。</p>
+              <div class="mockRow" style="margin-top:12px">
+                <span class="chip">生存ボタン</span>
+                <span class="chip">連続カウント</span>
+                <span class="chip">Apple / Google / ゲスト</span>
+                <span class="chip">通知（押し忘れ防止）</span>
+              </div>
+            </div>
+            <p class="note">※文言や機能名は、あなたの実装に合わせて自由に変更してOK。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="sectionHead">
+        <div>
+          <h2>特徴</h2>
+          <p class="sub">シンプル設計。だけど効く。</p>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div class="card feature">
+          <p class="kicker">One-Tap</p>
+          <h3>ワンタップ生存</h3>
+          <p>1日1回、押すだけ。面倒な入力なし。最小の行動で最大の安心。</p>
+        </div>
+
+        <div class="card feature">
+          <p class="kicker">Streak</p>
+          <h3>連続カウント</h3>
+          <p>続いた日数が見える。続けるほど、ちゃんと“生きてる”が積み上がる。</p>
+        </div>
+
+        <div class="card feature">
+          <p class="kicker">Nudge</p>
+          <h3>ツンツン（いいね）</h3>
+          <p>気づいたら軽く一押し。「押した？」って合図だけ送れる（※V2以降でもOK）。</p>
+        </div>
+
+        <div class="card feature">
+          <p class="kicker">Alert</p>
+          <h3>途切れたら通知</h3>
+          <p>一定日数チェックインがない場合、指定相手へ通知（仕様に合わせて日数変更可）。</p>
+        </div>
+
+        <div class="card feature">
+          <p class="kicker">Privacy</p>
+          <h3>位置情報なし</h3>
+          <p>場所や連絡先は見ない。必要最小限のデータだけで成り立つ設計。</p>
+        </div>
+
+        <div class="card feature">
+          <p class="kicker">Platforms</p>
+          <h3>まずは iOS</h3>
+          <p>iPhone / iPad 対応。将来Android対応するならここに追記。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="download">
+      <div class="sectionHead">
+        <div>
+          <h2>ダウンロード</h2>
+          <p class="sub">リリース前なら「近日公開」でOK。</p>
+        </div>
+      </div>
+
+      <div class="card download">
+        <div class="storeRow">
+          <div class="store">
+            <div class="name">App Store</div>
+            <div class="desc">iPhone / iPad</div>
+            <!-- リリース後：href をストアURLに差し替え -->
+            <a class="btn btnPrimary" href="#" aria-disabled="true">近日公開</a>
+          </div>
+          <div class="store">
+            <div class="name">Google Play</div>
+            <div class="desc">（予定がなければ削除でOK）</div>
+            <a class="btn" href="#" aria-disabled="true">予定なし / 準備中</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="privacy">
+      <div class="sectionHead">
+        <div>
+          <h2>プライバシー</h2>
+          <p class="sub">短く、明確に。</p>
+        </div>
+      </div>
+
+      <div class="card legal">
+        <p>
+          位置情報や連絡先は収集しません。<br>
+          生存チェックのために必要な最小限の情報（例：ユーザーID、連続日数など）のみを扱います。<br><br>
+          詳細は <a href="./privacy.html">プライバシーポリシー</a> をご確認ください。
+        </p>
+      </div>
+    </section>
+
+    <section id="terms">
+      <div class="sectionHead">
+        <div>
+          <h2>利用規約</h2>
+          <p class="sub">最低限のルールを用意。</p>
+        </div>
+      </div>
+
+      <div class="card legal">
+        <p>
+          本サービスの利用条件・免責などは <a href="./terms.html">利用規約</a> に定めます。<br>
+          お問い合わせは <a href="./contact.html">こちら</a>。
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footRow">
+        <div>© <span id="y"></span> I’m Alive? — keep on breathing.</div>
+        <div class="links">
+          <a href="./privacy.html">プライバシーポリシー</a>
+          <a href="./terms.html">利用規約</a>
+          <a href="./contact.html">お問い合わせ</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
