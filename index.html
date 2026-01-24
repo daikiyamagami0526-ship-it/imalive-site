@@ -4,203 +4,185 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>I’m Alive? | 生存チェック</title>
-  <meta name="description" content="今日、生きてるって押すだけ。連続生存を記録して、ゆるく見守り合う。">
+  <meta name="description" content="静かな見守り。連続生存を“記録”して、ゆるく“つながる”。" />
   <meta name="theme-color" content="#ff7a00" />
   <style>
     :root{
-      --bg:#070707;
-      --panel:#0e0e0e;
-      --text:#f4f4f4;
-      --muted:#bdbdbd;
-      --line:rgba(255,255,255,.10);
-      --accent:#ff7a00;
-      --accent2:#ffb000;
-      --radius:18px;
-      --shadow: 0 16px 60px rgba(0,0,0,.55);
+      --bg:#ffffff;
+      --text:#121212;
+      --muted:#5c5c5c;
+      --line:rgba(0,0,0,.08);
+      --orange:#ff7a00;
+      --orange2:#ffb000;
+      --soft:#fff2e8;
+      --radius:20px;
       --max: 980px;
+      --shadow: 0 16px 60px rgba(0,0,0,.10);
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
-      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      background:
-        radial-gradient(1200px 600px at 50% -20%, rgba(255,122,0,.25), transparent 60%),
-        radial-gradient(900px 500px at 80% 10%, rgba(255,176,0,.12), transparent 55%),
-        var(--bg);
+      font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",Segoe UI,Roboto,Helvetica,Arial,sans-serif;
       color:var(--text);
-      line-height:1.6;
+      background:
+        radial-gradient(1100px 600px at 20% 0%, rgba(255,122,0,.18), transparent 60%),
+        radial-gradient(900px 500px at 90% 15%, rgba(255,176,0,.12), transparent 55%),
+        linear-gradient(180deg, #fff 0%, #fff 55%, #fff7f0 100%);
     }
-    a{color:inherit; text-decoration:none}
-    .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--max);margin:0 auto;padding:0 18px}
+
     header{
-      position:sticky; top:0; z-index:10;
+      position:sticky;top:0;z-index:10;
+      background:rgba(255,255,255,.78);
       backdrop-filter: blur(14px);
-      background: linear-gradient(to bottom, rgba(7,7,7,.82), rgba(7,7,7,.45));
       border-bottom:1px solid var(--line);
     }
     .nav{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:14px 0;
-      gap:14px;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:14px 0;gap:14px;
     }
     .brand{
-      display:flex; align-items:center; gap:10px; min-width:220px;
-      font-weight:700; letter-spacing:.2px;
+      display:flex;align-items:center;gap:10px;
+      font-weight:900;letter-spacing:.2px;
     }
-    .dot{
-      width:12px; height:12px; border-radius:999px;
-      background: radial-gradient(circle at 30% 30%, var(--accent2), var(--accent));
-      box-shadow: 0 0 18px rgba(255,122,0,.55);
+    .mark{
+      width:12px;height:12px;border-radius:999px;
+      background:linear-gradient(135deg,var(--orange),var(--orange2));
+      box-shadow:0 0 18px rgba(255,122,0,.25);
     }
-    .menu{display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-end}
+    .menu{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
     .menu a{
+      padding:8px 10px;border-radius:999px;
       color:var(--muted);
-      padding:8px 10px;
-      border-radius:999px;
       border:1px solid transparent;
     }
     .menu a:hover{
       color:var(--text);
-      border-color:rgba(255,122,0,.35);
+      border-color:rgba(255,122,0,.25);
       background:rgba(255,122,0,.10);
     }
 
     .hero{padding:54px 0 26px}
     .heroGrid{
       display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap:22px;
+      grid-template-columns: 1.1fr .9fr;
+      gap:16px;
       align-items:stretch;
     }
-    @media (max-width: 920px){
-      .heroGrid{grid-template-columns:1fr; }
-      .brand{min-width:auto}
-    }
+    @media (max-width: 920px){ .heroGrid{grid-template-columns:1fr} }
+
     .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
       border:1px solid var(--line);
       border-radius:var(--radius);
       box-shadow:var(--shadow);
+      background: rgba(255,255,255,.88);
     }
     .heroMain{padding:26px}
-    h1{
-      margin:0 0 12px;
-      font-size:44px;
-      line-height:1.15;
-      letter-spacing:.2px;
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:7px 12px;border-radius:999px;
+      background:rgba(255,122,0,.12);
+      border:1px solid rgba(255,122,0,.22);
+      color:#8a3f00;
+      font-size:12px;font-weight:800;
+      width:fit-content;
+      margin-bottom:14px;
     }
-    .tagline{color:var(--muted); margin:0 0 18px; font-size:16px}
-    .lead{margin:0 0 22px; font-size:16px; color:#dedede}
-    .ctaRow{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
+    h1{margin:0 0 10px;font-size:44px;line-height:1.12}
+    .tagline{margin:0 0 14px;color:var(--muted);font-size:16px}
+    .lead{margin:0;color:#2b2b2b;font-size:15px;line-height:1.7}
+
+    .ctaRow{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
     .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:10px;
-      padding:12px 16px;
-      border-radius:999px;
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:12px 16px;border-radius:999px;
       border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      color:var(--text);
-      font-weight:700;
-      transition: transform .06s ease, background .18s ease, border-color .18s ease;
+      background:#fff;
+      font-weight:900;
+      transition: transform .06s ease, filter .18s ease, background .18s ease;
     }
-    .btn:hover{background: rgba(255,122,0,.10); border-color: rgba(255,122,0,.35)}
-    .btn:active{transform: translateY(1px)}
+    .btn:hover{background:rgba(255,122,0,.10);border-color:rgba(255,122,0,.25)}
+    .btn:active{transform:translateY(1px)}
     .btnPrimary{
-      background: linear-gradient(135deg, rgba(255,122,0,.95), rgba(255,176,0,.85));
-      border-color: rgba(255,122,0,.55);
+      border-color:rgba(255,122,0,.35);
+      background:linear-gradient(135deg,var(--orange),var(--orange2));
       color:#111;
     }
     .btnPrimary:hover{filter:brightness(1.03)}
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:7px 12px;
-      border-radius:999px;
-      border:1px solid rgba(255,122,0,.35);
-      background: rgba(255,122,0,.10);
-      color:#ffe8d2;
-      font-size:12px;
-      margin-bottom:14px;
-      width:fit-content;
-    }
-    .heroSide{padding:22px}
-    .mock{
-      height:100%;
-      border-radius: calc(var(--radius) - 6px);
-      border:1px dashed rgba(255,122,0,.35);
+
+    /* アイコンを主役に。背景は薄め */
+    .heroSide{
+      padding:22px;
       background:
-        radial-gradient(900px 420px at 30% 10%, rgba(255,122,0,.22), transparent 55%),
-        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      padding:18px;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      justify-content:space-between;
-      min-height: 260px;
+        radial-gradient(800px 420px at 50% 0%, rgba(255,122,0,.14), transparent 60%),
+        rgba(255,255,255,.88);
     }
-    .mockTitle{font-weight:800; letter-spacing:.2px}
-    .mockRow{display:flex; gap:10px; flex-wrap:wrap}
-    .chip{
-      font-size:12px; color:var(--muted);
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.02);
+    .iconWrap{
+      display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center;
+      height:100%;
+      min-height:260px;
+      text-align:center;
+      background:rgba(255,122,0,.06);
+      border:1px solid rgba(255,122,0,.18);
+      border-radius:calc(var(--radius) - 6px);
+      padding:20px;
     }
-    .note{
-      color:var(--muted);
-      font-size:12px;
-      margin:0;
+    .appIcon{
+      width:160px;height:160px;
+      border-radius:22%; /* iOSっぽい角丸 */
+      display:block;
+      background:#fff;
+      border:1px solid rgba(0,0,0,.06);
+      box-shadow: 0 10px 28px rgba(0,0,0,.12);
+      object-fit:cover;
     }
+    .iconNote{margin:0;color:var(--muted);font-size:13px}
 
     section{padding:28px 0}
-    .sectionHead{display:flex; align-items:flex-end; justify-content:space-between; gap:12px; margin-bottom:14px}
-    h2{margin:0; font-size:22px}
-    .sub{margin:0; color:var(--muted); font-size:13px}
-    .grid3{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:14px;
-    }
-    @media (max-width: 920px){ .grid3{grid-template-columns:1fr} }
-    .feature{padding:18px}
-    .kicker{
-      color:#ffd8b0;
-      font-size:12px;
-      letter-spacing:.2px;
-      margin:0 0 8px;
-    }
-    .feature h3{margin:0 0 8px; font-size:16px}
-    .feature p{margin:0; color:var(--muted); font-size:14px}
+    .sectionHead{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:14px}
+    h2{margin:0;font-size:22px}
+    .sub{margin:0;color:var(--muted);font-size:13px}
 
-    .download{padding:18px}
-    .storeRow{display:flex; gap:12px; flex-wrap:wrap; margin-top:12px}
-    .store{
-      flex:1 1 240px;
-      padding:16px;
-      border-radius:var(--radius);
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.02);
+    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    @media (max-width:920px){ .grid3{grid-template-columns:1fr} }
+    .feature{padding:18px}
+    .kicker{margin:0 0 8px;font-size:12px;font-weight:900;color:#8a3f00}
+    .feature h3{margin:0 0 8px;font-size:16px}
+    .feature p{margin:0;color:var(--muted);font-size:14px}
+
+    .roadmap{
+      padding:18px;
+      background:
+        linear-gradient(180deg, rgba(255,122,0,.10), rgba(255,255,255,.88));
+      border:1px solid rgba(255,122,0,.18);
     }
-    .store .name{font-weight:800}
-    .store .desc{margin:6px 0 12px; color:var(--muted); font-size:13px}
-    .store .btn{width:100%}
+    .rmGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}
+    @media (max-width:920px){ .rmGrid{grid-template-columns:1fr} }
+    .rmItem{
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:#fff;
+      padding:14px;
+    }
+    .rmV{font-weight:900;color:var(--orange)}
+    .rmT{margin:6px 0 0;color:#2b2b2b}
+    .rmD{margin:6px 0 0;color:var(--muted);font-size:13px;line-height:1.65}
 
     .legal{padding:18px}
-    .legal p{margin:0; color:var(--muted); font-size:14px}
-    .legal a{
-      color:#ffd8b0;
-      text-decoration:underline;
-      text-underline-offset:3px;
-    }
+    .legal p{margin:0;color:var(--muted);font-size:14px;line-height:1.75}
+    .legal a{color:var(--orange);text-decoration:underline;text-underline-offset:3px}
 
     footer{
       padding:26px 0 40px;
       border-top:1px solid var(--line);
       color:var(--muted);
       font-size:12px;
+      background:rgba(255,122,0,.06);
     }
-    .footRow{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; align-items:center}
-    .links{display:flex; gap:12px; flex-wrap:wrap}
+    .footRow{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
+    .links{display:flex;gap:12px;flex-wrap:wrap}
     .links a:hover{color:var(--text)}
   </style>
 </head>
@@ -210,12 +192,12 @@
     <div class="wrap">
       <div class="nav">
         <div class="brand">
-          <span class="dot" aria-hidden="true"></span>
+          <span class="mark" aria-hidden="true"></span>
           <span>I’m Alive?</span>
         </div>
         <nav class="menu" aria-label="ページ内メニュー">
-          <a href="#features">特徴</a>
-          <a href="#download">ダウンロード</a>
+          <a href="#features">機能</a>
+          <a href="#roadmap">ロードマップ</a>
           <a href="#privacy">プライバシー</a>
           <a href="#terms">利用規約</a>
         </nav>
@@ -227,32 +209,24 @@
     <section class="hero">
       <div class="heroGrid">
         <div class="card heroMain">
-          <div class="pill">今日、生きてるって押すだけ。</div>
+          <div class="pill">静かな見守り。連続生存を“記録”して、ゆるく“つながる”。</div>
           <h1>I’m Alive?</h1>
-          <p class="tagline">静かな見守り。連続生存を“記録”して、ゆるく“つながる”。</p>
+          <p class="tagline">今日を押す。続いた日数が残る。それだけ。</p>
           <p class="lead">
-            1日1回のチェックインで「今日」を残す。<br>
-            もし途切れたら、指定した相手に通知（※実装状況に合わせて調整可）。
+            Version 1 は <b>ワンタップ生存</b> と <b>連続カウント</b>のみ。<br>
+            ログインは <b>ゲスト / メール</b> に対応。
           </p>
+
           <div class="ctaRow">
-            <a class="btn btnPrimary" href="#download">公開状況を見る</a>
+            <a class="btn btnPrimary" href="#roadmap">ロードマップを見る</a>
             <a class="btn" href="#features">機能を見る</a>
           </div>
         </div>
 
         <div class="card heroSide">
-          <div class="mock">
-            <div>
-              <div class="mockTitle">画面イメージ（あとで差し替えOK）</div>
-              <p class="note">ここはスクショ/動画/GIFを置く場所。まずは仮でOK。</p>
-              <div class="mockRow" style="margin-top:12px">
-                <span class="chip">生存ボタン</span>
-                <span class="chip">連続カウント</span>
-                <span class="chip">Apple / Google / ゲスト</span>
-                <span class="chip">通知（押し忘れ防止）</span>
-              </div>
-            </div>
-            <p class="note">※文言や機能名は、あなたの実装に合わせて自由に変更してOK。</p>
+          <div class="iconWrap">
+            <img class="appIcon" src="./app-icon.png" alt="I’m Alive? アプリアイコン">
+            <p class="iconNote">※アプリ内スクショは掲載しません（アイコンのみ）。</p>
           </div>
         </div>
       </div>
@@ -261,8 +235,8 @@
     <section id="features">
       <div class="sectionHead">
         <div>
-          <h2>特徴</h2>
-          <p class="sub">シンプル設計。だけど効く。</p>
+          <h2>Version 1 の機能</h2>
+          <p class="sub">最小で、成立させる。</p>
         </div>
       </div>
 
@@ -270,61 +244,55 @@
         <div class="card feature">
           <p class="kicker">One-Tap</p>
           <h3>ワンタップ生存</h3>
-          <p>1日1回、押すだけ。面倒な入力なし。最小の行動で最大の安心。</p>
+          <p>今日を残す。入力なし。押すだけ。</p>
         </div>
 
         <div class="card feature">
           <p class="kicker">Streak</p>
-          <h3>連続カウント</h3>
-          <p>続いた日数が見える。続けるほど、ちゃんと“生きてる”が積み上がる。</p>
+          <h3>連続生存カウント</h3>
+          <p>続いた日数が見える。記録が積み上がる。</p>
         </div>
 
         <div class="card feature">
-          <p class="kicker">Nudge</p>
-          <h3>ツンツン（いいね）</h3>
-          <p>気づいたら軽く一押し。「押した？」って合図だけ送れる（※V2以降でもOK）。</p>
-        </div>
-
-        <div class="card feature">
-          <p class="kicker">Alert</p>
-          <h3>途切れたら通知</h3>
-          <p>一定日数チェックインがない場合、指定相手へ通知（仕様に合わせて日数変更可）。</p>
-        </div>
-
-        <div class="card feature">
-          <p class="kicker">Privacy</p>
-          <h3>位置情報なし</h3>
-          <p>場所や連絡先は見ない。必要最小限のデータだけで成り立つ設計。</p>
-        </div>
-
-        <div class="card feature">
-          <p class="kicker">Platforms</p>
-          <h3>まずは iOS</h3>
-          <p>iPhone / iPad 対応。将来Android対応するならここに追記。</p>
+          <p class="kicker">Login</p>
+          <h3>ゲスト / メール</h3>
+          <p>最小の保存のためのログイン。Google/Appleは使用しません。</p>
         </div>
       </div>
     </section>
 
-    <section id="download">
+    <section id="roadmap">
       <div class="sectionHead">
         <div>
-          <h2>ダウンロード</h2>
-          <p class="sub">リリース前なら「近日公開」でOK。</p>
+          <h2>ロードマップ</h2>
+          <p class="sub">詳細は後日。まずは“方向”だけ。</p>
         </div>
       </div>
 
-      <div class="card download">
-        <div class="storeRow">
-          <div class="store">
-            <div class="name">App Store</div>
-            <div class="desc">iPhone / iPad</div>
-            <!-- リリース後：href をストアURLに差し替え -->
-            <a class="btn btnPrimary" href="#" aria-disabled="true">近日公開</a>
+      <div class="card roadmap">
+        <div class="rmGrid">
+          <div class="rmItem">
+            <div class="rmV">Version 1</div>
+            <div class="rmT">記録装置</div>
+            <div class="rmD">ワンタップ生存 / 連続カウント</div>
           </div>
-          <div class="store">
-            <div class="name">Google Play</div>
-            <div class="desc">（予定がなければ削除でOK）</div>
-            <a class="btn" href="#" aria-disabled="true">予定なし / 準備中</a>
+
+          <div class="rmItem">
+            <div class="rmV">Version 2</div>
+            <div class="rmT">軽い接点</div>
+            <div class="rmD">ツンツン機能（予定）</div>
+          </div>
+
+          <div class="rmItem">
+            <div class="rmV">Version 3</div>
+            <div class="rmT">終わりと再起動</div>
+            <div class="rmD">“終わり”と“再スタート”の扱い（予定）</div>
+          </div>
+
+          <div class="rmItem">
+            <div class="rmV">Version 4</div>
+            <div class="rmT">痕跡としての他者</div>
+            <div class="rmD">会話なしの静かなつながり（予定）</div>
           </div>
         </div>
       </div>
@@ -340,8 +308,7 @@
 
       <div class="card legal">
         <p>
-          位置情報や連絡先は収集しません。<br>
-          生存チェックのために必要な最小限の情報（例：ユーザーID、連続日数など）のみを扱います。<br><br>
+          本サービスは、必要最小限の情報のみを取り扱います。<br>
           詳細は <a href="./privacy.html">プライバシーポリシー</a> をご確認ください。
         </p>
       </div>
@@ -357,7 +324,7 @@
 
       <div class="card legal">
         <p>
-          本サービスの利用条件・免責などは <a href="./terms.html">利用規約</a> に定めます。<br>
+          利用条件・免責などは <a href="./terms.html">利用規約</a> に定めます。<br>
           お問い合わせは <a href="./contact.html">こちら</a>。
         </p>
       </div>
@@ -367,7 +334,7 @@
   <footer>
     <div class="wrap">
       <div class="footRow">
-        <div>© <span id="y"></span> I’m Alive? — keep on breathing.</div>
+        <div>© <span id="y"></span> I’m Alive?</div>
         <div class="links">
           <a href="./privacy.html">プライバシーポリシー</a>
           <a href="./terms.html">利用規約</a>
