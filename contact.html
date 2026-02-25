@@ -3,24 +3,24 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>お問い合わせ | I’m Alive?</title>
-  <meta http-equiv="refresh" content="0; url=https://forms.gle/LNTqFGuRt5dsprDPA">
+  <title>お問い合わせ | Nudgi</title>
+  <meta http-equiv="refresh" content="3; url=https://forms.gle/LNTqFGuRt5dsprDPA">
   <style>
-    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;background:#fff7f0;color:#121212;line-height:1.7}
-    .wrap{max-width:860px;margin:0 auto;padding:28px 18px}
-    .card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:18px;box-shadow:0 16px 60px rgba(0,0,0,.10)}
-    a{color:#ff7a00}
-    .btn{display:inline-block;margin-top:12px;padding:10px 14px;border-radius:999px;border:1px solid rgba(255,122,0,.25);background:rgba(255,122,0,.10);text-decoration:none;font-weight:900}
+    body { margin: 0; font-family: -apple-system, sans-serif; background: #fff; color: #333; display: flex; align-items: center; justify-content: center; height: 100vh; text-align: center; }
+    .wrap { max-width: 400px; padding: 24px; }
+    h1 { font-weight: 900; color: #1A1A1A; }
+    .loader { width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #FF8C33; border-radius: 50%; animation: spin 1s linear infinite; margin: 20px auto; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .btn { display: inline-block; margin-top: 20px; padding: 14px 24px; background: #FF8C33; color: #fff; text-decoration: none; border-radius: 50px; font-weight: bold; }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="card">
-      <h1>お問い合わせ</h1>
-      <p>Googleフォームへ移動します。自動で移動しない場合は、下のボタンを押してください。</p>
-      <a class="btn" href="https://forms.gle/LNTqFGuRt5dsprDPA">Googleフォームを開く</a>
-      <p style="margin-top:16px;"><a href="./index.html">トップへ戻る</a></p>
-    </div>
+    <div class="loader"></div>
+    <h1>お問い合わせ</h1>
+    <p>Googleフォームへ移動しています...</p>
+    <a href="https://forms.gle/LNTqFGuRt5dsprDPA" class="btn">今すぐ移動する</a>
+    <p style="margin-top: 30px;"><a href="./index.html" style="color: #999; text-decoration: none;">キャンセルして戻る</a></p>
   </div>
 </body>
 </html>
